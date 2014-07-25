@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<div class="panel panel-primary">
+			<div class="panel-heading">消费计划列表</div>
+			<div class="panel-body" style="padding:15px 5px 0px 5px;">
+				<div class="btn-toolbar pull-right">
+					<a class="btn btn-primary" href="#" ng-click="newAdd('consume/add_consumer_plan.html')"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新增</a>
+					<a class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;批量删除</a>
+				</div>
+				<table class="table table-striped" style="margin:0px;">
+					<thead>
+						<tr>
+							<th class="text-center">序列号</th>
+							<th class="text-center">日期</th>
+							<th class="text-center">类别</th>
+							<th class="text-center">明细</th>
+							<th class="text-center">具体支出(元)</th>
+							<th class="text-center">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center">1</td>
+							<td class="text-center">2014年01月</td>
+							<td class="text-center">日常支出</td>
+							<td class="text-center">洗衣粉</td>
+							<td class="text-center">14.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">2</td>
+							<td class="text-center">2014年01月</td>
+							<td class="text-center">医药支出</td>
+							<td class="text-center">咳特灵</td>
+							<td class="text-center">20.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">3</td>
+							<td class="text-center">2014年01月</td>
+							<td class="text-center">意外支出</td>
+							<td class="text-center">结婚随礼</td>
+							<td class="text-center">1000.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">4</td>
+							<td class="text-center">2014年01月</td>
+							<td class="text-center">其它支出</td>
+							<td class="text-center">丢失</td>
+							<td class="text-center">10.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">5</td>
+							<td class="text-center">2014年02月</td>
+							<td class="text-center">其它支出</td>
+							<td class="text-center">丢失</td>
+							<td class="text-center">10.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">6</td>
+							<td class="text-center">2014年03月</td>
+							<td class="text-center">其它支出</td>
+							<td class="text-center">丢失</td>
+							<td class="text-center">10.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">7</td>
+							<td class="text-center">2014年04月</td>
+							<td class="text-center">其它支出</td>
+							<td class="text-center">丢失</td>
+							<td class="text-center">10.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">8</td>
+							<td class="text-center">2014年05月</td>
+							<td class="text-center">其它支出</td>
+							<td class="text-center">丢失</td>
+							<td class="text-center">10.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center">9</td>
+							<td class="text-center">2014年06月</td>
+							<td class="text-center">其它支出</td>
+							<td class="text-center">丢失</td>
+							<td class="text-center">10.00</td>
+							<td class="text-center">
+								<a class="btn btn-primary btn-xs">修改</a>
+								<a class="btn btn-primary btn-xs">删除</a>
+								<a class="btn btn-primary btn-xs">详情</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer" style="height:50px;">
+				<ul class="pager" style="margin:0px;">
+				  <li><a href="#">Previous</a></li>
+				  <li><a href="#">1</a></li>
+				  <li><a href="#">2</a></li>
+				  <li><a href="#">······</a></li>
+				  <li><a href="#">3</a></li>
+				  <li><a href="#">4</a></li>
+				  <li><a href="#">Next</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

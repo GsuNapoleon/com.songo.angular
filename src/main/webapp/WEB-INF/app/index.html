@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="angular">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>家政理财管理平台</title>
+	<link type="text/css" rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="resources/bootstrap/css/bootstrap-datetimepicker.min.css"/>
+	<link type="text/css" rel="stylesheet" href="resources/bootstrap/css/bootstrap-theme.min.css"/>
+	<link type="text/css" rel="stylesheet" href="resources/css/dashboard.css"/>
+	<script type="text/javascript" src="resources/angular/angular.min.js"></script>
+	<script type="text/javascript" src="resources/angular/angular-route.min.js"></script>
+	<!-- Just for debugging purposes. Don't actually copy this line! -->
+	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+		var projectApp = angular.module('angular', []);
+		projectApp.controller('MenuController', function($scope) {
+			$scope.menus =
+			  [ { name: '消费总览', isLeaf: true, url: 'main'},
+			    { name: '消费计划', isLeaf: true, url: 'menu/consumer/plan'},
+			    { name: '收入管理', isLeaf: false, 
+			    	submenus:[
+		    	          {name:'工资管理', isLeaf:true, url: 'commons.html'},
+		    	          {name:'私单管理', isLeaf:true, url: 'commons.html'},
+		    	          {name:'理财管理', isLeaf:true, url: 'commons.html'},
+		    	          {name:'其它管理', isLeaf:true, url: 'commons.html'}
+	    	          ]
+			    },
+			    { name: '支出管理', isLeaf: false, 
+			    	submenus:[
+		    	          {name:'常用支出管理', isLeaf:true, url: 'commons.html'},
+		    	          {name:'临时支出管理', isLeaf:true, url: 'commons.html'},
+		    	          {name:'支出汇总管理', isLeaf:true, url: 'commons.html'}
+	    	          ]
+			    }
+			  ];
+			//$scope.menu = $scope.menus[0];
+		});
+		projectApp.controller('MainKindsController', function($scope) {
+			$scope.url = 'main';
+			$scope.nodeOnclick = function(menu) {
+				$scope.url = menu.url;
+			}
+			$scope.newAdd = function(url) {
+				$scope.url = url;
+				$scope.$on('$includeContentLoaded', function() {
+					$('#payDate').datetimepicker({
+	                    pickTime: false,
+	                    language:'zh-cn',
+	                    orientation:'left'
+	                });
+				});
+			}
+		});
+	</script>
+	<style id="holderjs-style" type="text/css"></style>
+</head>
+<body>
+	<div class="slide-animate" ng-include=" 'top' "></div>
+    <div class="container-fluid" ng-controller="MainKindsController">
+      <div class="row">
+        <!-- <div class="slide-animate" ng-include=" 'menu.html' "></div> -->
+        <div class="col-sm-3 col-md-2 sidebar" ng-controller="MenuController">
+			<ul class="nav nav-pills nav-stacked" ng-repeat="menu in menus">
+				<li ng-if="menu.isLeaf"><a href="#" ng-click="nodeOnclick(menu)">{{menu.name}}</a></li>
+				<li ng-if="!menu.isLeaf" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{menu.name}}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="submenu in menu.submenus" ng-if="submenu.isLeaf">
+							<a ng-click="nodeOnclick(submenu)">{{submenu.name}}</a><div class="divider"></div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+        <div id="mainKinds" class="slide-animate" ng-include="url"></div>
+      </div>
+    </div>
+	<script type="text/javascript" src="resources/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="resources/bootstrap/js/moment.min.js"></script>
+    <script type="text/javascript" src="resources/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="resources/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+</body>
+</html>

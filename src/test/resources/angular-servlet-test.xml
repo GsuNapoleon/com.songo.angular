@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:redis="http://www.springframework.org/schema/redis"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/jms" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd"
+	default-autowire="byName">
+	<mvc:annotation-driven conversion-service="conversionService" 
+		content-negotiation-manager="contentNegotiationManager"
+		validator="validator">
+		<mvc:path-matching suffix-pattern="true" trailing-slash="false" />
+	</mvc:annotation-driven>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:component-scan base-package="com.songo.angular" />
+	<import resource="classpath:angular-jdbc-test.xml"/>
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="registerDefaultFormatters" value="false" />
+        <property name="formatters">
+        <set>
+            <bean class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory" />
+        </set>
+        </property>
+        <property name="formatterRegistrars">
+        <set>
+          <bean class="org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar">
+              <property name="dateFormatter">
+                  <bean class="org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean">
+                      <property name="pattern" value="yyyy-MM-dd"/>
+                  </bean>
+              </property>
+          </bean>
+      </set>
+      </property>
+    </bean>
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+	    <property name="favorPathExtension" value="false" />
+	    <property name="favorParameter" value="true" />
+	    <property name="mediaTypes" >
+	        <value>
+	            json=application/json
+	            xml=application/xml
+	        </value>
+	    </property>
+	</bean>
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"></bean>
+	
+	<!-- 基于注解风格的JSON配置 --> 
+	<bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
+		<property name="messageConverters"> 
+			<util:list id="beanList"> 
+				<ref bean="mappingJacksonHttpMessageConverter" /> 
+			</util:list> 
+		</property> 
+	</bean> 
+
+	<bean id="mappingJacksonHttpMessageConverter" 
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	
+	<mvc:default-servlet-handler/>
+	<!-- 
+	<mvc:view-controller path="/angular" view-name="angular" />
+	<mvc:resources location="/,/resources" mapping="/resources/*"/> -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/interface/**" />
+			<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/app/" />
+		<property name="suffix" value=".html" />
+	</bean>
+</beans>

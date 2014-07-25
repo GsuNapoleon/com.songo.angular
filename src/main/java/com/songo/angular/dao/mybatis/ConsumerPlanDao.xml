@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.songo.angular.dao.ConsumerPlanDao">
+	<select id="select" parameterType="com.songo.angular.model.ConsumerPlan" 
+		resultType="com.songo.angular.model.ConsumerPlan">
+		select 
+			* 
+		from
+			t_consumer_plan
+		<where>
+			<if test="name != null and name != ''">
+				name like #{name}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.songo.angular.model.ConsumerPlan">
+		insert into 
+			t_consumer_plan(`consumerId`, `category`,  `details`, `expense`, 
+				`purchaseDate`, `isstatus` , `isvisible`, `creator`, `updator`, `createTime`,  `updateTime`) 
+		values
+			(#{consumerId}, #{category}, #{details}, #{expense}, 
+			#{purchaseDate}, #{isstatus}, #{isvisible}, #{creator}, #{updator}, #{createTime}, #{updateTime})
+	</insert>
+	
+	<update id="update" parameterType="com.songo.angular.model.ConsumerPlan">
+		update t_consumer_plan 
+		set name=#{name}, visible=#{visible}, updator=#{updator}, update_time=#{updateTime}
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from t_consumer_plan where id = #{id}
+	</delete>
+</mapper> 

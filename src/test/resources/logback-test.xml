@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+
+	<property name="pattern"
+		value="%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{36}.%M [%file:%line] | %msg%n"></property>
+	<property name="maxHistory" value="7"></property>
+	<property name="maxFileSize" value="100MB"></property>
+	<property name="logPath"
+		value="D:\\DevelopmentEnvironment\\logs\\com.songo.angular\\"></property>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>${pattern}</Pattern>
+		</encoder>
+		<target>System.err</target>
+	</appender>
+
+	<appender name="STD_ROLLING_TIMEBASE_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- Support multiple-JVM writing to the same log file -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${logPath}angular_test_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>${maxHistory}</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches maxFileSize -->
+				<maxFileSize>${maxFileSize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<Pattern>${pattern}</Pattern>
+		</encoder>
+	</appender>
+
+	<root level="TRACE">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="STD_ROLLING_TIMEBASE_FILE" />
+	</root>
+</configuration>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="menuApp">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="resources/angular/angular.min.js"></script>
+	<script type="text/javascript">
+		var menuApp = angular.module('menuApp', []);
+		menuApp.controller('MenuController', function($scope) {
+			$scope.menus =
+			  [ { name: 'Test1', url: 'template1.html'},
+			    { name: 'Test2', url: 'template2.html'} ];
+			//$scope.menu = $scope.menus[0];
+		});
+	</script>
+</head>
+<body ng-controller="MenuController">
+<div class="col-sm-3 col-md-2 sidebar">
+	<ul class="nav nav-pills nav-stacked">
+		<li class="active"><a href="#">消费总览</a></li>
+	</ul>
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="#">消费计划</a></li>
+	</ul>
+	<ul class="nav nav-pills nav-stacked">
+		<li ng-repeat="menu in menus"><a href="">{{menu.name}}</a></li>
+	</ul>
+	<ul class="nav nav-pills nav-stacked">
+		<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">支出管理<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a href="#">常用支出管理</a></li>
+				<li class="divider"></li>
+				<li><a href="#">临时支出管理</a></li>
+				<li class="divider"></li>
+				<li><a href="#">支出汇总管理</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</body>
+</html>

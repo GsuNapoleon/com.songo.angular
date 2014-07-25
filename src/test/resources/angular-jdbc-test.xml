@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd"
+	default-autowire="byName">
+	<tx:annotation-driven />
+	<!-- 
+	<aop:aspectj-autoproxy />
+	<context:component-scan base-package="com.snakespirit.app.*" />
+	<util:properties id="config" location="classpath:config.properties" /> -->
+	<context:property-placeholder location="classpath:jdbc-test.properties" />
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	    <property name="driverClass" value="${jdbc.DriverClass}"/>
+	    <property name="jdbcUrl" value="${jdbc.JdbcUrl}"/>
+	    <property name="user" value="${jdbc.User}"/>
+	    <property name="password" value="${jdbc.Password}"/>
+	    <property name="acquireIncrement" value="${jdbc.AcquireIncrement}" />
+	    <property name="acquireRetryAttempts" value="${jdbc.AcquireRetryAttempts}" />
+	    <property name="acquireRetryDelay" value="${jdbc.AcquireRetryDelay}" />
+	    <property name="autoCommitOnClose" value="${jdbc.AutoCommitOnClose}" />
+	    <property name="breakAfterAcquireFailure" value="${jdbc.BreakAfterAcquireFailure}" />
+	    <property name="checkoutTimeout" value="${jdbc.CheckoutTimeout}" />
+	    <property name="description" value="${jdbc.Description}" />
+	    <property name="forceIgnoreUnresolvedTransactions" value="${jdbc.ForceIgnoreUnresolvedTransactions}" />
+	    <property name="idleConnectionTestPeriod" value="${jdbc.IdleConnectionTestPeriod}" />
+	    <property name="initialPoolSize" value="${jdbc.InitialPoolSize}" />
+	    <property name="maxIdleTime" value="${jdbc.MaxIdleTime}" />
+	    <property name="maxPoolSize" value="${jdbc.MaxPoolSize}" />
+	    <property name="maxStatements" value="${jdbc.MaxStatements}" />
+	    <property name="maxStatementsPerConnection" value="${jdbc.MaxStatementsPerConnection}" />
+	    <property name="minPoolSize" value="${jdbc.MinPoolSize}" />
+	    <property name="numHelperThreads" value="${jdbc.NumHelperThreads}" />
+	    <property name="testConnectionOnCheckin" value="${jdbc.TestConnectionOnCheckin}" />
+	    <property name="testConnectionOnCheckout" value="${jdbc.TestConnectionOnCheckout}" />
+	    <property name="usesTraditionalReflectiveProxies" value="${jdbc.UsesTraditionalReflectiveProxies}" />
+	</bean>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	<bean id="ssFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-test-cfg.xml" />
+		<property name="mapperLocations" value="classpath*:com/songo/angular/dao/mybatis/*.xml" />
+		<property name="typeAliasesPackage" value="com.songo.angular.model" />
+	</bean>	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="ssFactory" />
+		<property name="basePackage" value="com.songo.angular.dao" />
+	</bean>
+</beans>
