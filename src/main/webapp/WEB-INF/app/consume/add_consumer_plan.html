@@ -1,56 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<div class="panel panel-primary">
-			<div class="panel-heading">新增消费计划</div>
-			<div class="panel-body text-center" style="padding:15px 5px 0px 5px;">
-				<form action="" class="form-horizontal" role="form" ng-submit="">
-					<div class="form-group">
-						<label for="payOut" class="col-sm-5 control-label">计划类别</label>
-						<div class="col-sm-4">
-							<select class="form-control" id="payOut">
-								<option>----请选择----</option>
-								<option>日常支出</option>
-								<option>意外支出</option>
-								<option>医药支出</option>
-								<option>其他支出</option>
-							</select>
-						</div>
+<div ng-controller="ConsumerEditCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<div class="panel panel-primary">
+		<div class="panel-heading">新增消费计划</div>
+		<div class="panel-body text-center" style="padding:15px 5px 0px 5px;">
+			<form class="form-horizontal" role="form" ng-submit="form.$invalid || save()">
+				<div class="form-group">
+					<label for="payOut" class="col-sm-5 control-label">计划类别</label>
+					<div class="col-sm-4">
+						<select class="form-control" id="payOut" ng-model="consumerPlan.category">
+							<option value="">----请选择----</option>
+							<option value="1">日常支出</option>
+							<option value="2">意外支出</option>
+							<option value="3">医药支出</option>
+							<option value="4">其他支出</option>
+						</select>
 					</div>
-					<div class="form-group">
-						<label for="payDetails" class="col-sm-5 control-label">计划明细</label>
-						<div class="col-sm-4">
-							<input id="payDetails" type="text" class="form-control" placeholder="计划明细"/>
-						</div>
+				</div>
+				<div class="form-group">
+					<label for="payDetails" class="col-sm-5 control-label">计划明细</label>
+					<div class="col-sm-4">
+						<input id="payDetails" ng-model="consumerPlan.details" type="text" class="form-control" placeholder="计划明细"/>
 					</div>
-					<div class="form-group">
-						<label for="payFee" class="col-sm-5 control-label">计划费用</label>
-						<div class="col-sm-4">
-							<input id="payFee" type="number" class="form-control" placeholder="计划费用"/>
-						</div>
+				</div>
+				<div class="form-group">
+					<label for="payFee" class="col-sm-5 control-label">计划费用</label>
+					<div class="col-sm-4">
+						<input id="payFee" ng-model="consumerPlan.expense" type="number" class="form-control" placeholder="计划费用"/>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-5 control-label">计划日期</label>
-						<div class="col-sm-4">
-		                    <!-- <input name="payDate" type="date" data-date-format="yyyy-mm-dd" class="form-control" value="" min="2014-01-01" /> -->
-							<div class='col-sm-12 input-group date' id="payDate" data-date-format="YYYY-MM-DD">
-								<input type="text" class="form-control" />
-			                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
-			                    </span>
-			                </div>
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-5 control-label">计划日期</label>
+					<div class="col-sm-4">
+	                    <!-- <input name="payDate" type="date" data-date-format="yyyy-mm-dd" class="form-control" value="" min="2014-01-01" /> -->
+						<div class='col-sm-12 input-group date' id="payDate" data-date-format="YYYY-MM-DD">
+							<input type="text" ng-model="consumerPlan.purchaseDate" class="form-control" />
+		                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+		                    </span>
+		                </div>
 					</div>
-					<div class="form-group col-sm-9 text-center">
-						<input class="btn btn-primary" type="submit" value="确定"/>&nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="取消"/> 
-					</div>
-				</form>
-			</div>
+				</div>
+				<div class="form-group col-sm-9 text-center">
+					<input class="btn btn-primary" type="submit" value="确定"/>&nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="取消"/> 
+				</div>
+			</form>
 		</div>
 	</div>
-</body>
-</html>
+</div>

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	xmlns:util="http://www.springframework.org/schema/util" 
-	xmlns:redis="http://www.springframework.org/schema/redis"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:redis="http://www.springframework.org/schema/redis"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jms="http://www.springframework.org/schema/jms" 
-	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -25,55 +20,75 @@
         http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd"
 	default-autowire="byName">
-	<mvc:annotation-driven conversion-service="conversionService" content-negotiation-manager="contentNegotiationManager">
-		<mvc:path-matching suffix-pattern="true" trailing-slash="false" />
+	<mvc:annotation-driven conversion-service="conversionService"
+		content-negotiation-manager="contentNegotiationManager">
+		<mvc:path-matching suffix-pattern="true"
+			trailing-slash="false" />
+		<mvc:message-converters>
+			<ref bean="mappingJackson2HttpMessageConverter"/>
+		</mvc:message-converters>
 	</mvc:annotation-driven>
-	<import resource="classpath:angular-jdbc.xml"/>
 	<context:component-scan base-package="com.songo.angular" />
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="registerDefaultFormatters" value="false" />
-        <property name="formatters">
-        <set>
-            <bean class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory" />
-        </set>
-        </property>
-        <property name="formatterRegistrars">
-        <set>
-          <bean class="org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar">
-              <property name="dateFormatter">
-                  <bean class="org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean">
-                      <property name="pattern" value="yyyyMMdd"/>
-                  </bean>
-              </property>
-          </bean>
-      </set>
-      </property>
-    </bean>
-	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-	    <property name="favorPathExtension" value="false" />
-	    <property name="favorParameter" value="true" />
-	    <property name="mediaTypes" >
-	        <value>
-	            json=application/json
-	            xml=application/xml
-	        </value>
-	    </property>
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="registerDefaultFormatters" value="false" />
+		<property name="formatters">
+			<set>
+				<bean
+					class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory" />
+			</set>
+		</property>
+		<property name="formatterRegistrars">
+			<set>
+				<bean
+					class="org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar">
+					<property name="dateFormatter">
+						<bean
+							class="org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean">
+							<property name="pattern" value="yyyy-MM-dd" />
+						</bean>
+					</property>
+				</bean>
+			</set>
+		</property>
 	</bean>
-	
-	<!-- 基于注解风格的JSON配置 --> 
-	<bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
-		<property name="messageConverters"> 
-			<util:list id="beanList"> 
-				<ref bean="mappingJacksonHttpMessageConverter" /> 
-			</util:list> 
-		</property> 
-	</bean> 
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="false" />
+		<property name="favorParameter" value="true" />
+		<property name="mediaTypes">
+			<value>
+				json=application/json
+				xml=application/xml
+			</value>
+		</property>
+	</bean>
 
-	<bean id="mappingJacksonHttpMessageConverter" 
-		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
-	
-	<mvc:default-servlet-handler/>
+	<!-- 基于注解风格的JSON配置 -->
+	<bean id="handlerAdapter"
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="objectMapper">
+			<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+				<property name="dateFormat">
+					<bean class="java.text.SimpleDateFormat">
+						<constructor-arg type="java.lang.String" value="yyyy-MM-dd" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<mvc:default-servlet-handler />
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
 		<mvc:interceptor>
@@ -82,16 +97,16 @@
 			<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
-	<!-- <mvc:view-controller path="/" view-name="angular" />
-	<mvc:resources location="/" mapping="/res/*"/> -->
+	<!-- <mvc:view-controller path="/" view-name="angular" /> -->
+	<mvc:resources location="/WEB-INF/app/" mapping="/app/**" />
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
-		<!-- 
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" /> -->
+		<!-- <property name="prefix" value="/WEB-INF/jsp/" /> <property name="suffix" 
+			value=".jsp" /> -->
 		<property name="prefix" value="/WEB-INF/app/" />
 		<property name="suffix" value=".html" />
 	</bean>
+	<import resource="classpath:angular-jdbc.xml" />
 </beans>

@@ -9,17 +9,6 @@
 	<link type="text/css" rel="stylesheet" href="resources/bootstrap/css/bootstrap-datetimepicker.min.css"/>
 	<link type="text/css" rel="stylesheet" href="resources/bootstrap/css/bootstrap-theme.min.css"/>
 	<link type="text/css" rel="stylesheet" href="resources/css/dashboard.css"/>
-	<script type="text/javascript" src="resources/angular/angular.min.js"></script>
-	<script type="text/javascript" src="resources/angular/angular-route.min.js"></script>
-	<script type="text/javascript" src="resources/angular/angular-resource.min.js"></script>
-	<script type="text/javascript" src="resources/app/app.js"></script>
-	<!-- Just for debugging purposes. Don't actually copy this line! -->
-	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script type="text/javascript">
 		
 	</script>
@@ -32,18 +21,18 @@
         <!-- <div class="slide-animate" ng-include=" 'menu.html' "></div> -->
         <div class="col-sm-3 col-md-2 sidebar" ng-controller="MenuController">
 			<ul class="nav nav-pills nav-stacked" ng-repeat="menu in menus">
-				<li ng-if="menu.isLeaf"><a href="#!/{{menu.url}}" >{{menu.name}}</a></li>
+				<li ng-if="menu.isLeaf"><a href="#!{{menu.url}}" >{{menu.name}}</a></li>
 				<li ng-if="!menu.isLeaf" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{menu.name}}<b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li ng-repeat="submenu in menu.submenus" ng-if="submenu.isLeaf">
-							<a ng-click="nodeOnclick(submenu)">{{submenu.name}}</a><div class="divider"></div>
+							<a href="#!{{submenu.url}}">{{submenu.name}}</a><div class="divider"></div>
 						</li>
 					</ul>
 				</li>
 			</ul>
 		</div>
         <!-- <div id="mainKinds" class="slide-animate" ng-include="url"></div> -->
-        <div ng-view></div>
+        <div class="content faded" ng-view ng-cloak></div>
       </div>
     </div>
 	<script type="text/javascript" src="resources/js/jquery-2.1.0.min.js"></script>
@@ -51,5 +40,11 @@
     <script type="text/javascript" src="resources/bootstrap/js/moment.min.js"></script>
     <script type="text/javascript" src="resources/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="resources/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="resources/angular/angular.min.js"></script>
+	<script type="text/javascript" src="resources/angular/angular-route.min.js"></script>
+	<script type="text/javascript" src="resources/angular/angular-resource.min.js"></script>
+	<script type="text/javascript" src="resources/app/app.js"></script>
+	<script type="text/javascript" src="resources/app/controllers.js"></script>
+	<script type="text/javascript" src="resources/app/services.js"></script>
 </body>
 </html>

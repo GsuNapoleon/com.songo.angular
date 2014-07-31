@@ -17,5 +17,5 @@ public interface ConsumerPlanDao {
 	void insert(ConsumerPlan obj);
 	void update(ConsumerPlan obj);
 	void delete(int id);
-	List<ConsumerPlan> select(ConsumerPlan obj);
+	List<ConsumerPlan> selectList(ConsumerPlan obj);
 }

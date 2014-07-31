@@ -42,7 +42,7 @@ public class ConsumerPlan extends BaseModel {
 	@NumberFormat(style=Style.NUMBER)
 	private BigDecimal expense;
 	
-	@DateTimeFormat(iso=ISO.DATE)
+	@DateTimeFormat(iso=ISO.DATE, pattern="yyyy-MM-dd")
 	private Date purchaseDate;
 
 	private boolean isstatus = Boolean.TRUE.booleanValue();

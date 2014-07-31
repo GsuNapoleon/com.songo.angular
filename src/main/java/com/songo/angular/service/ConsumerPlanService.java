@@ -3,6 +3,8 @@
  */
 package com.songo.angular.service;
 
+import java.util.List;
+
 import com.songo.angular.model.ConsumerPlan;
 
 /**
@@ -13,4 +15,5 @@ import com.songo.angular.model.ConsumerPlan;
 public interface ConsumerPlanService {
 	
 	void add(ConsumerPlan obj);
+	List<ConsumerPlan> getList(ConsumerPlan obj);
 }

@@ -3,6 +3,8 @@
  */
 package com.songo.angular.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,7 @@ import com.songo.angular.service.ConsumerPlanService;
  * @author gsu·napoleon
  */
 @Transactional
-@Service("consumerPlanService")
+@Service
 public class ConsumerPlanServiceImpl implements ConsumerPlanService {
 
 	@Autowired
@@ -29,6 +31,14 @@ public class ConsumerPlanServiceImpl implements ConsumerPlanService {
 	@Override
 	public void add(ConsumerPlan obj) {
 		consumerPlanDao.insert(obj);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.songo.angular.service.ConsumerPlanService#getList(com.songo.angular.model.ConsumerPlan)
+	 */
+	@Override
+	public List<ConsumerPlan> getList(ConsumerPlan obj) {
+		return consumerPlanDao.selectList(obj);
 	}
 	
 }

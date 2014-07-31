@@ -2,12 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:tx="http://www.springframework.org/schema/tx" 
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
-	default-autowire="byName">
+	default-lazy-init="true">
 	<tx:annotation-driven />
+	
 	<!-- 
 	<aop:aspectj-autoproxy />
 	<context:component-scan base-package="com.snakespirit.app.*" />
@@ -38,25 +41,24 @@
 	    <property name="testConnectionOnCheckout" value="${jdbc.TestConnectionOnCheckout}" />
 	    <property name="usesTraditionalReflectiveProxies" value="${jdbc.UsesTraditionalReflectiveProxies}" />
 	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-cfg.xml" />
+		<property name="mapperLocations" value="classpath*:com/songo/angular/**/mybatis/*Dao.xml" />
+		<property name="typeAliasesPackage" value="com.songo.angular.model" />
+	</bean>	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="get*" read-only="true"/>
-			<tx:method name="find*" read-only="true"/>
-			<tx:method name="query*" read-only="true"/>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
 			<tx:method name="*"/>
 		</tx:attributes>
 	</tx:advice>
-	<bean id="ssFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:mybatis-cfg.xml" />
-		<property name="mapperLocations" value="classpath*:com/songo/angular/dao/mybatis/*.xml" />
-		<property name="typeAliasesPackage" value="com.songo.angular.model" />
-	</bean>	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="sqlSessionFactoryBeanName" value="ssFactory" />
-		<property name="basePackage" value="com.songo.angular.dao" />
+		<property name="basePackage" value="com.songo.**.dao" />
 	</bean>
 </beans>

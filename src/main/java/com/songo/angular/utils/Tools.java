@@ -20,7 +20,15 @@ public final class Tools {
         return format(date, "yyyy-MM-dd HH:mm:ss,SSS");
     }
 
-    public static String format(Date date, String pattern) {
+	public static String format(Date date) {
+		if ( date == null) {
+			return null;
+		}
+		
+		return format(date, "yyyy-MM-dd");
+	}
+
+	public static String format(Date date, String pattern) {
         if ( date == null || StringUtils.isEmpty(pattern)) {
             return null;
         }

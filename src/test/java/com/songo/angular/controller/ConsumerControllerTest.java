@@ -3,6 +3,8 @@
  */
 package com.songo.angular.controller;
 
+import java.net.URISyntaxException;
+
 import org.junit.Test;
 
 /**
@@ -23,6 +25,19 @@ public class ConsumerControllerTest extends BaseControllerTest {
 					.param("creator", "狄仁杰"))
 					;
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testQuery() {
+		try {
+			mockMvc.perform(get("/consumer/query"));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

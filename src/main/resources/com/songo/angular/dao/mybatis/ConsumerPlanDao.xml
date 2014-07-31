@@ -2,15 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.songo.angular.dao.ConsumerPlanDao">
-	<select id="select" parameterType="com.songo.angular.model.ConsumerPlan" 
+	<select id="selectList" parameterType="com.songo.angular.model.ConsumerPlan" 
 		resultType="com.songo.angular.model.ConsumerPlan">
-		select 
-			* 
-		from
-			t_consumer_plan
+		select id, consumerId, category, details, expense, purchaseDate, isstatus, isvisible, creator, updator, createTime, updateTime from t_consumer_plan
 		<where>
-			<if test="name != null and name != ''">
-				name like #{name}
+			<if test="consumerId != null and consumerId != ''">
+				consumerId=#{consumerId} 
 			</if>
 		</where>
 	</select>
