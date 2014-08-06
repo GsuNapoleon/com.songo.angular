@@ -26,11 +26,11 @@ public class ConsumerPlan extends BaseModel {
 	 */
 	private static final long serialVersionUID = -1330965459831427733L;
 
-	private int id;
+	private Integer id;
 	
 	@NotNull(message="不能为空")
 	@Min(value=1, message="consumerId不能为0")
-	private int consumerId;
+	private Integer consumerId = 1;
 	
 	@NotNull
 	private String category;
@@ -50,28 +50,28 @@ public class ConsumerPlan extends BaseModel {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	/**
 	 * @return the consumerId
 	 */
-	public int getConsumerId() {
+	public Integer getConsumerId() {
 		return consumerId;
 	}
 
 	/**
 	 * @param consumerId the consumerId to set
 	 */
-	public void setConsumerId(int consumerId) {
+	public void setConsumerId(Integer consumerId) {
 		this.consumerId = consumerId;
 	}
 
@@ -134,7 +134,7 @@ public class ConsumerPlan extends BaseModel {
 	/**
 	 * @return the isstatus
 	 */
-	public boolean isIsstatus() {
+	public boolean getIsstatus() {
 		return isstatus;
 	}
 

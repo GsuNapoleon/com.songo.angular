@@ -10,8 +10,11 @@ projectApp.config([ '$routeProvider', '$locationProvider',
 			$routeProvider.when('/consumer-plans.html', {
 				templateUrl : 'app/consume/consumer_plan.html',
 				controller : 'ConsumerListCtrl'
-			}).when('/pre/add/consumer/plan', {
-				templateUrl : 'app/consume/add_consumer_plan.html',
+			}).when('/edit-consumer-plan.html', {
+				templateUrl : 'app/consume/edit_consumer_plan.html',
+				controller : 'ConsumerEditCtrl'
+			}).when('/edit-consumer-plan.html/:id', {
+				templateUrl : 'app/consume/edit_consumer_plan.html',
 				controller : 'ConsumerEditCtrl'
 			}).otherwise({
 				templateUrl : 'app/main.html',

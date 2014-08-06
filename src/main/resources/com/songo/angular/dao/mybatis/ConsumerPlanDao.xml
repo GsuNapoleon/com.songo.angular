@@ -2,14 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.songo.angular.dao.ConsumerPlanDao">
-	<select id="selectList" parameterType="com.songo.angular.model.ConsumerPlan" 
-		resultType="com.songo.angular.model.ConsumerPlan">
-		select id, consumerId, category, details, expense, purchaseDate, isstatus, isvisible, creator, updator, createTime, updateTime from t_consumer_plan
+	<sql id="selectAll">
+		select 
+			id, consumerId, category, details, expense, purchaseDate, 
+			isstatus, isvisible, creator, updator, createTime, updateTime 
+		from 
+			t_consumer_plan
+	</sql>
+	<sql id="where">
 		<where>
+			1=1
 			<if test="consumerId != null and consumerId != ''">
-				consumerId=#{consumerId} 
+				and consumerId=#{consumerId} 
 			</if>
 		</where>
+	</sql>
+	<sql id="orderBy">
+		order by updateTime desc,createTime desc
+	</sql>
+	<select id="selectList" parameterType="com.songo.angular.model.ConsumerPlan" 
+		resultType="com.songo.angular.model.ConsumerPlan">
+		<include refid="selectAll"/>
+		<include refid="where"/>
+		<include refid="orderBy"/>
+	</select>
+
+	<select id="queryPagination" parameterType="com.songo.angular.entity.Pagination" 
+		resultType="com.songo.angular.model.ConsumerPlan">
+		<include refid="selectAll"/>
+		<where>
+			1=1
+			<if test="parameter != null and parameter.consumerId != null and parameter.consumerId != ''">
+				and consumerId=#{parameter.consumerId} 
+			</if>
+		</where>
+		<include refid="orderBy"/>
+		limit #{startIndex}, #{pageSize}
+	</select>
+
+	<select id="queryTotalRecords" parameterType="com.songo.angular.model.ConsumerPlan"
+		resultType="java.lang.Integer">
+		select count(*) from t_consumer_plan
+		<include refid="where"/>			
+	</select>
+
+	<select id="queryById" parameterType="java.lang.Integer" 
+		resultType="com.songo.angular.model.ConsumerPlan">
+		<include refid="selectAll"/>
+		<where>
+			id = #{id}
+		</where>	
 	</select>
 
 	<insert id="insert" parameterType="com.songo.angular.model.ConsumerPlan">
@@ -23,8 +65,19 @@
 	
 	<update id="update" parameterType="com.songo.angular.model.ConsumerPlan">
 		update t_consumer_plan 
-		set name=#{name}, visible=#{visible}, updator=#{updator}, update_time=#{updateTime}
-		where id=#{id}
+			<set>
+				<if test="consumerId != null">consumerId=#{consumerId},</if>
+				<if test="category != null">category=#{category},</if>
+				<if test="details != null">details=#{details},</if>
+				<if test="expense != null">expense=#{expense},</if>
+				<if test="purchaseDate != null">purchaseDate=#{purchaseDate},</if>
+				<if test="isstatus != null">isstatus=#{isstatus},</if>
+				<if test="isvisible != null">isvisible=#{isvisible},</if>
+				<if test="updator != null">updator=#{updator},</if>
+				<if test="updateTime != null">updateTime=#{updateTime},</if>
+			</set>
+		where 
+			id = #{id}
 	</update>
 	
 	<delete id="delete" parameterType="java.lang.Integer">

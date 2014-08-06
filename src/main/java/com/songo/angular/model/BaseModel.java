@@ -4,6 +4,7 @@
 package com.songo.angular.model;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
 /**
@@ -18,11 +19,11 @@ public class BaseModel implements Serializable {
 	 */
 	private static final long serialVersionUID = -5479824001409279705L;
 	
-	private String creator;
-	private String updator;
-	private Timestamp createTime;
-	private Timestamp updateTime;
-	private boolean isvisible = true;// 默认可见
+	protected String creator;
+	protected String updator;
+	protected Timestamp createTime;
+	protected Timestamp updateTime;
+	protected boolean isvisible = true;// 默认可见
 	
 	/**
 	 * @return the createTime
@@ -42,7 +43,7 @@ public class BaseModel implements Serializable {
 	 * @return the updateTime
 	 */
 	public Timestamp getUpdateTime() {
-		return updateTime == null ? new Timestamp(System.currentTimeMillis()) : updateTime;
+		return new Timestamp(System.currentTimeMillis());
 	}
 	
 	/**
@@ -92,6 +93,30 @@ public class BaseModel implements Serializable {
 	 */
 	public void setUpdator(String updator) {
 		this.updator = updator;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		Class<? extends BaseModel> clazz = this.getClass();
+		Field [] fields = clazz.getDeclaredFields();
+		StringBuilder builder = new StringBuilder();
+		builder.append("Class:[{name=\"").append(clazz.getSimpleName()).append("\"},");
+		String suffix = "";
+		try {
+			for (Field field : fields) {
+				field.setAccessible(true);
+				builder.append(suffix);
+				builder.append("{").append(field.getName()).append("=").append(field.get(this)).append("}");
+				suffix = ",";
+			}
+		} catch (Exception e) {
+			builder.append("{errorMsgs=重写toString时,出现了不可逆的错误}");
+		}
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

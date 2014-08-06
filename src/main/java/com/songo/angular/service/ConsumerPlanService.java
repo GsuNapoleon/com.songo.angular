@@ -5,6 +5,7 @@ package com.songo.angular.service;
 
 import java.util.List;
 
+import com.songo.angular.entity.Pagination;
 import com.songo.angular.model.ConsumerPlan;
 
 /**
@@ -14,6 +15,11 @@ import com.songo.angular.model.ConsumerPlan;
  */
 public interface ConsumerPlanService {
 	
-	void add(ConsumerPlan obj);
-	List<ConsumerPlan> getList(ConsumerPlan obj);
+	void add(ConsumerPlan obj) throws Exception;
+	void update(ConsumerPlan obj) throws Exception;
+	void delete(Integer id) throws Exception;
+	ConsumerPlan getById(Integer id) throws Exception;
+	List<ConsumerPlan> getList(ConsumerPlan obj) throws Exception;
+	Pagination<ConsumerPlan> getPagination(Pagination<ConsumerPlan> obj) throws Exception;
+	
 }

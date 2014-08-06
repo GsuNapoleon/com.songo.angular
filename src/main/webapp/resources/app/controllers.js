@@ -2,49 +2,103 @@
  * 
  */
 'use strict';
-var projectControllers = angular.module('projectControllers', []);
-projectControllers.controller('ConsumerListCtrl', ['$scope', '$rootScope',
-   		'$routeParams', '$location', 'ConsumerService',function($scope, $rootScope,
-		$routeParams, $location, ConsumerService) {
-	var failure = function(error) {
-		console.log(error);
-		console.log("Failure");
-		// notifier.error(error.data.message);
-		$location.path('/main');
-	};
-	var consumerPlans = ConsumerService.query(null, function (){
-		$scope.consumerPlans = consumerPlans;
-	}, failure);
-}]);
+var projectControllers = angular.module('projectControllers', ['ui.bootstrap']);
+projectControllers.controller('ConsumerListCtrl', [ '$scope', '$rootScope',
+        '$route', '$routeParams', '$location', 'ConsumerService',
+		function($scope, $rootScope, $route, $routeParams, $location, ConsumerService) {
+			var failure = function(error) {
+				console.log(error);
+				console.log("Failure");
+				// notifier.error(error.data.message);
+				$location.path('/consumer-plans.html');
+			};
+			var success = function(data) {
+				// $rootScope.$broadcast('photosChange', {id: photo.id,
+				// categoryId: categoryId});
+				console.log(data);
+				console.log("Successfully");
+				$location.path('/consumer-plans.html');
+				$route.reload();
+			};
+			
+			$scope.maxSize = 5;
+			$scope.bigTotalItems = 0;
+			$scope.bigCurrentPage = 1;
+			$scope.$watch("bigCurrentPage", function(newValue, oldValue) {
+				doPaging(newValue);
+			});
+			$scope.init = function() {
+				//doPaging(1);
+			};
+			function doPaging(currentPage) {
+				var paginations = ConsumerService.pagination({
+					currentPage : currentPage
+				}, function() {
+					$scope.consumerPlans = paginations.results;
+					$scope.bigTotalItems = paginations.totalRecords;
+					$scope.totalPages = paginations.totalPages;
+					$scope.itemsPerPage = paginations.pageSize;
+				}, failure);
+			}
+			$scope.remove = function (id) {
+		    	if (!id){
+		    		throw {
+		    			name: "Error",
+		    			message: "Delete this ConsumerPlan is not possible"
+		    		};
+		    	}
+		    	ConsumerService.postRemove({id:id}, success);
+		    };
+			// var consumerPlans = ConsumerService.query(null, function (){
+			// $scope.consumerPlans = consumerPlans;
+			// }, failure);
+		} ]);
 projectControllers.controller('ConsumerEditCtrl', [ '$scope', '$rootScope',
 		'$routeParams', '$location', 'ConsumerService',
 		function($scope, $rootScope, $routeParams, $location, ConsumerService) {
-			$scope.$on('$includeContentLoaded', function() {
-				$('#payDate').datetimepicker({
-					pickTime : false,
-					language : 'zh-cn',
-					orientation : 'left'
-				});
+			$scope.$on('$viewContentLoaded', function() {
+
 			});
 			
+			var id = $routeParams.id;
+			console.error("............. id={" + id + "}");
+			$scope.$location = $location;
+			if (id > 0) {
+				$scope.consumerPlan = {id:id};
+				ConsumerService.postFindById({id:id, operate:'find'}, function (consumerPlan) {
+					$scope.master=consumerPlan;
+					$scope.reset();
+				}, failure);
+			}
+
 			/** définition d'handler. */
 			var success = function(data) {
 				// $rootScope.$broadcast('photosChange', {id: photo.id,
 				// categoryId: categoryId});
 				console.log(data);
 				console.log("Successfully");
-				$location.path('/menu/consumer/plan');
+				$location.path('/consumer-plans.html');
 			};
 
 			var failure = function(error) {
 				console.log(error);
 				console.log("Failure");
 				// notifier.error(error.data.message);
-				$location.path('/menu/consumer/plan');
+				$location.path('/consumer-plans.html');
 			};
 			$scope.save = function() {
-				ConsumerService.postAdd($scope.consumerPlan, success, failure);
+				if (id > 0) {
+					ConsumerService.postUpdate({id:id}, $scope.consumerPlan, success, failure);
+				} else {
+					ConsumerService.postAdd($scope.consumerPlan, success, failure);
+				}
 			};
+		    $scope.reset = function() {
+				$scope.consumerPlan = angular.copy($scope.master);
+			};
+			$scope.isUnchanged = function() {
+				return angular.equals($scope.consumerPlan, $scope.master);
+			};	
 		} ]);
 projectControllers.controller('WelcomeCtrl', function($scope) {
 });
@@ -97,5 +151,5 @@ projectControllers.controller('MenuController', function($scope) {
 	// $scope.menu = $scope.menus[0];
 });
 projectControllers.controller('MainKindsController', function($scope) {
-	
+
 });

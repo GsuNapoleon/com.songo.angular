@@ -1,6 +1,6 @@
-<div ng-controller="ConsumerEditCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<div class="panel panel-primary">
-		<div class="panel-heading">新增消费计划</div>
+		<div class="panel-heading">编辑消费计划</div>
 		<div class="panel-body text-center" style="padding:15px 5px 0px 5px;">
 			<form class="form-horizontal" role="form" ng-submit="form.$invalid || save()">
 				<div class="form-group">
@@ -30,16 +30,12 @@
 				<div class="form-group">
 					<label class="col-sm-5 control-label">计划日期</label>
 					<div class="col-sm-4">
-	                    <!-- <input name="payDate" type="date" data-date-format="yyyy-mm-dd" class="form-control" value="" min="2014-01-01" /> -->
-						<div class='col-sm-12 input-group date' id="payDate" data-date-format="YYYY-MM-DD">
-							<input type="text" ng-model="consumerPlan.purchaseDate" class="form-control" />
-		                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
-		                    </span>
-		                </div>
+	                    <input name="payDate" type="text" placeholder="计划日期" ng-model="consumerPlan.purchaseDate" class="form-control Wdate" style="height:35px;"
+	                    	onfocus="WdatePicker({isShowWeek:true,onpicked: function(){$(this).trigger('change')}})" />
 					</div>
 				</div>
 				<div class="form-group col-sm-9 text-center">
-					<input class="btn btn-primary" type="submit" value="确定"/>&nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="取消"/> 
+					<input class="btn btn-primary" type="submit" value="确定"/>&nbsp;&nbsp;<input class="btn btn-primary" type="button" onclick="" value="取消"/> 
 				</div>
 			</form>
 		</div>
