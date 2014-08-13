@@ -3,6 +3,8 @@
  */
 package com.songo.angular.service;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +45,16 @@ public class ConsumerPlanServiceTest extends BaseTest {
 		}
 	}
 
+	@Test
+	public void testSelectList() {
+		try {
+			List<ConsumerPlan> lists = consumerPlanService.getList(new ConsumerPlan());
+			for (ConsumerPlan cp : lists) {
+				System.out.println(cp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

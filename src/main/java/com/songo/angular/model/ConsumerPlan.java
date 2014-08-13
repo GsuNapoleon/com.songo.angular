@@ -46,6 +46,8 @@ public class ConsumerPlan extends BaseModel {
 	private Date purchaseDate;
 
 	private boolean isstatus = Boolean.TRUE.booleanValue();
+	
+	private Dictionary dictionary;
 
 	/**
 	 * @return the id
@@ -143,6 +145,20 @@ public class ConsumerPlan extends BaseModel {
 	 */
 	public void setIsstatus(boolean isstatus) {
 		this.isstatus = isstatus;
+	}
+
+	/**
+	 * @return the dictionary
+	 */
+	public Dictionary getDictionary() {
+		return dictionary;
+	}
+
+	/**
+	 * @param dictionary the dictionary to set
+	 */
+	public void setDictionary(Dictionary dictionary) {
+		this.dictionary = dictionary;
 	}
 	
 }

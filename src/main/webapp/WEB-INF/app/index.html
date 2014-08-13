@@ -21,16 +21,21 @@
       <div class="row">
         <!-- <div class="slide-animate" ng-include=" 'menu.html' "></div> -->
         <div class="col-sm-3 col-md-2 sidebar" ng-controller="MenuController">
-			<ul class="nav nav-pills nav-stacked" ng-repeat="menu in menus">
-				<li ng-if="menu.isLeaf"><a href="#!{{menu.url}}" >{{menu.name}}</a></li>
-				<li ng-if="!menu.isLeaf" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{menu.name}}<b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li ng-repeat="submenu in menu.submenus" ng-if="submenu.isLeaf">
-							<a href="#!{{submenu.url}}">{{submenu.name}}</a><div class="divider"></div>
+        	<div class="panel panel-primary">
+        		<div class="panel-heading">功能菜单</div>
+        		<div class="panel-body">
+					<ul class="nav nav-pills nav-stacked" ng-repeat="menu in menus">
+						<li ng-if="menu.isLeaf"><a href="#!{{menu.url}}" >{{menu.name}}</a></li>
+						<li ng-if="!menu.isLeaf" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{menu.name}}<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li ng-repeat="submenu in menu.submenus" ng-if="submenu.isLeaf">
+									<a href="#!{{submenu.url}}">{{submenu.name}}</a><div class="divider"></div>
+								</li>
+							</ul>
 						</li>
 					</ul>
-				</li>
-			</ul>
+        		</div>
+			</div>
 		</div>
         <!-- <div id="mainKinds" class="slide-animate" ng-include="url"></div> -->
         <div class="content faded" ng-view ng-cloak></div>

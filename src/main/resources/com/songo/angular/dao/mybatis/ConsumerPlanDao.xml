@@ -4,10 +4,15 @@
 <mapper namespace="com.songo.angular.dao.ConsumerPlanDao">
 	<sql id="selectAll">
 		select 
-			id, consumerId, category, details, expense, purchaseDate, 
-			isstatus, isvisible, creator, updator, createTime, updateTime 
+			cp.id, consumerId, category, details, expense, purchaseDate, 
+			isstatus, isvisible, creator, updator, createTime, updateTime,
+			d.codeText 
 		from 
-			t_consumer_plan
+			t_consumer_plan as cp
+		left join 
+			t_dictionary as d
+		on
+			cp.category=d.codeValue and d.catalog='CONSUME_CATEGORY'
 	</sql>
 	<sql id="where">
 		<where>
@@ -20,15 +25,33 @@
 	<sql id="orderBy">
 		order by updateTime desc,createTime desc
 	</sql>
-	<select id="selectList" parameterType="com.songo.angular.model.ConsumerPlan" 
-		resultType="com.songo.angular.model.ConsumerPlan">
+	<resultMap type="ConsumerPlan" id="consumerPlanResultMap">
+		<result property="id" column="id"/>
+		<result property="consumerId" column="consumerId"/>
+		<result property="category" column="category"/>
+		<result property="details" column="details"/>
+		<result property="expense" column="expense"/>
+		<result property="purchaseDate" column="purchaseDate"/>
+		<result property="isstatus" column="isstatus"/>
+		<result property="isvisible" column="isvisible"/>
+		<result property="creator" column="creator"/>
+		<result property="updator" column="updator"/>
+		<result property="createTime" column="createTime"/>
+		<result property="updateTime" column="updateTime"/>
+		<association property="dictionary" javaType="Dictionary" resultMap="dictionaryResultMap"></association>
+	</resultMap>
+	<resultMap type="Dictionary" id="dictionaryResultMap">
+		<result property="codeText" column="codeText"/>
+	</resultMap>
+	<select id="selectList" parameterType="ConsumerPlan" 
+		resultMap="consumerPlanResultMap">
 		<include refid="selectAll"/>
 		<include refid="where"/>
 		<include refid="orderBy"/>
 	</select>
 
 	<select id="queryPagination" parameterType="com.songo.angular.entity.Pagination" 
-		resultType="com.songo.angular.model.ConsumerPlan">
+		resultMap="consumerPlanResultMap">
 		<include refid="selectAll"/>
 		<where>
 			1=1
@@ -40,21 +63,21 @@
 		limit #{startIndex}, #{pageSize}
 	</select>
 
-	<select id="queryTotalRecords" parameterType="com.songo.angular.model.ConsumerPlan"
+	<select id="queryTotalRecords" parameterType="ConsumerPlan"
 		resultType="java.lang.Integer">
 		select count(*) from t_consumer_plan
 		<include refid="where"/>			
 	</select>
 
 	<select id="queryById" parameterType="java.lang.Integer" 
-		resultType="com.songo.angular.model.ConsumerPlan">
+		resultType="ConsumerPlan">
 		<include refid="selectAll"/>
 		<where>
-			id = #{id}
+			cp.id = #{id}
 		</where>	
 	</select>
 
-	<insert id="insert" parameterType="com.songo.angular.model.ConsumerPlan">
+	<insert id="insert" parameterType="ConsumerPlan">
 		insert into 
 			t_consumer_plan(`consumerId`, `category`,  `details`, `expense`, 
 				`purchaseDate`, `isstatus` , `isvisible`, `creator`, `updator`, `createTime`,  `updateTime`) 
@@ -63,7 +86,7 @@
 			#{purchaseDate}, #{isstatus}, #{isvisible}, #{creator}, #{updator}, #{createTime}, #{updateTime})
 	</insert>
 	
-	<update id="update" parameterType="com.songo.angular.model.ConsumerPlan">
+	<update id="update" parameterType="ConsumerPlan">
 		update t_consumer_plan 
 			<set>
 				<if test="consumerId != null">consumerId=#{consumerId},</if>

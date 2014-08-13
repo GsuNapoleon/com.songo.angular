@@ -16,7 +16,7 @@ import com.songo.angular.model.BaseModel;
  */
 public class Pagination<T extends BaseModel> {
 
-	public static final int DEFAULT_PAGE_SIZE = 5;
+	public static final int DEFAULT_PAGE_SIZE = 10;
 	
 	private int totalRecords;	// 总记录数
 	private int currentPage;	// 当前页
