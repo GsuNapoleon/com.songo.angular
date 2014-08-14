@@ -17,8 +17,8 @@
 	<sql id="where">
 		<where>
 			1=1
-			<if test="consumerId != null and consumerId != ''">
-				and consumerId=#{consumerId} 
+			<if test="category != null and category != ''">
+				and category=#{category} 
 			</if>
 		</where>
 	</sql>
@@ -55,8 +55,8 @@
 		<include refid="selectAll"/>
 		<where>
 			1=1
-			<if test="parameter != null and parameter.consumerId != null and parameter.consumerId != ''">
-				and consumerId=#{parameter.consumerId} 
+			<if test="parameter != null and parameter.category != null and parameter.category != ''">
+				and category=#{parameter.category} 
 			</if>
 		</where>
 		<include refid="orderBy"/>

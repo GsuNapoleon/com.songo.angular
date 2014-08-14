@@ -4,7 +4,8 @@
 'use strict';
 var projectServices = angular.module('projectServices', [ 'ngResource' ]);
 projectServices.factory('ConsumerService', [ '$resource', function($resource) {
-	return $resource('consumer/:id/:currentPage/:operate', {id:'@id', currentPage:'@currentPage', operate:'@operate'}, { 
+	return $resource('consumer/:id/:currentPage/:searchContent/:operate', 
+			{id:'@id', currentPage:'@currentPage', searchContent:'@searchContent', operate:'@operate'}, { 
     	'get': 		{method:'GET'},
     	'query':  	{method:'GET', isArray:true},
     	'pagination':{method:'GET'},

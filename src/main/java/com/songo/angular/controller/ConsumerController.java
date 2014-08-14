@@ -6,6 +6,7 @@ package com.songo.angular.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,17 @@ public class ConsumerController extends BaseController {
 	@Autowired
 	private ConsumerPlanService consumerPlanService;
 	
-	@RequestMapping(value="/{currentPage}", method=RequestMethod.GET)
+	@RequestMapping(value="/{currentPage}/{searchContent}/{operate}", method=RequestMethod.GET)
 	@ResponseBody
-	public Pagination<ConsumerPlan> pagination(@PathVariable int currentPage) {
+	public Pagination<ConsumerPlan> pagination(@PathVariable int currentPage,
+			@PathVariable("searchContent") String category, @PathVariable String operate) {
 		Pagination<ConsumerPlan> parameterPagination = new Pagination<ConsumerPlan>();
 		try {
-			parameterPagination.setParameter(new ConsumerPlan());
+			logger.debug("接收到的查询参数为：currentPage={}, category={}, operate={}.", 
+					new Object[]{currentPage, category, operate});
+			ConsumerPlan parameter = new ConsumerPlan();
+			parameter.setCategory(filterSearchContent(category));
+			parameterPagination.setParameter(parameter);
 			parameterPagination.setCurrentPage(currentPage);
 			return consumerPlanService.getPagination(parameterPagination);
 		} catch (Exception e) {

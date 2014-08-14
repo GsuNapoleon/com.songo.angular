@@ -31,15 +31,18 @@ projectControllers.controller('ConsumerListCtrl', [
 			$scope.maxSize = 5;
 			$scope.bigTotalItems = 0;
 			$scope.bigCurrentPage = 1;
+			$scope.searchContent = "default";
 			$scope.$watch("bigCurrentPage", function(newValue, oldValue) {
-				doPaging(newValue);
+				doPaging(newValue, $scope.searchContent);
 			});
-			$scope.init = function() {
-				// doPaging(1);
+			$scope.search = function() {
+				doPaging(1, $scope.searchContent);
 			};
-			function doPaging(currentPage) {
+			function doPaging(currentPage, searchContent) {
 				var paginations = ConsumerService.pagination({
-					currentPage : currentPage
+					currentPage : currentPage,
+					searchContent : searchContent,
+					operate : 'pagination'
 				}, function() {
 					$scope.consumerPlans = paginations.results;
 					$scope.bigTotalItems = paginations.totalRecords;
@@ -83,7 +86,6 @@ projectControllers.controller('ConsumerEditCtrl', [
 			});
 
 			var id = $routeParams.id;
-			console.error("............. id={" + id + "}");
 			$scope.$location = $location;
 			if (id > 0) {
 				$scope.consumerPlan = {
@@ -91,7 +93,7 @@ projectControllers.controller('ConsumerEditCtrl', [
 				};
 				ConsumerService.postFindById({
 					id : id,
-					operate : 'find'
+					operate : 'findById'
 				}, function(consumerPlan) {
 					$scope.master = consumerPlan;
 					$scope.reset();

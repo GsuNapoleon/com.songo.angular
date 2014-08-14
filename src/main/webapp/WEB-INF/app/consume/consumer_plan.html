@@ -1,46 +1,68 @@
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<div class="panel panel-primary">
-		<div class="panel-heading">消费计划列表</div>
 		<div class="panel-body" style="padding: 15px 5px 0px 5px;">
-			<div class="btn-toolbar pull-right">
-				<a class="btn btn-primary" href="#!/edit-consumer-plan.html"><span
-					class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新增</a> <a
-					class="btn btn-primary"><span
-					class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;批量删除</a>
+			<div class="panel panel-primary">
+				<div class="panel-heading">操作栏</div>
+				<div class="panel-body">
+					<div class="btn-toolbar pull-left col-sm-12">
+						<div class="input-group">
+							<select class="form-control" id="searchContent" ng-model="searchContent" required>
+								<option value="default">----请选择消费类别----</option>
+								<option value="1">日常支出</option>
+								<option value="2">意外支出</option>
+								<option value="3">医药支出</option>
+								<option value="4">其他支出</option>
+							</select>
+						</div>
+						<div class="pull-right">
+							<a class="btn btn-primary" ng-click="search()"><span
+								class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;查询</a>
+							<a class="btn btn-primary" href="#!/edit-consumer-plan.html"><span
+								class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;新增</a> <a
+								class="btn btn-primary"><span
+								class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;批量删除</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<table data-ng-init="init()" class="table table-striped" style="margin: 0px;">
-				<thead>
-					<tr>
-						<th class="text-center">序列号</th>
-						<th class="text-center">日期</th>
-						<th class="text-center">类别</th>
-						<th class="text-center">明细</th>
-						<th class="text-center">具体支出(元)</th>
-						<th class="text-center">操作</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="consumerPlan in consumerPlans">
-						<td class="text-center">{{$index + 1}}</td>
-						<td class="text-center">{{consumerPlan.purchaseDate }}</td>
-						<td class="text-center">{{consumerPlan.dictionary.codeText }}</td>
-						<td class="text-center">{{consumerPlan.details }}</td>
-						<td class="text-center">{{consumerPlan.expense }}</td>
-						<td class="text-center">
-							<a class="btn btn-primary btn-xs" href="#!/edit-consumer-plan.html/{{consumerPlan.id}}">修改</a>
-							<a class="btn btn-primary btn-xs" ng-click="remove(consumerPlan.id)">删除</a> 
-							<a class="btn btn-primary btn-xs">详情</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="panel-footer" style="margin: 5px 0 0;text-align: center;">
-			<pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" 
-				first-text="第一页" last-text="末页" previous-text="上一页" next-text="下一页" 
-				class="pagination-sm"  boundary-links="true" items-per-page="itemsPerPage" rotate="false" num-pages="numPages">
-			</pagination>
+			<div class="panel panel-primary">
+				<div class="panel-heading">消费计划列表</div>
+				<div class="panel-body">
+					<table data-ng-init="init()" class="table table-striped" style="margin: 0px;">
+						<thead>
+							<tr>
+								<th class="text-center">序列号</th>
+								<th class="text-center">日期</th>
+								<th class="text-center">类别</th>
+								<th class="text-center">明细</th>
+								<th class="text-center">具体支出(元)</th>
+								<th class="text-center">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="consumerPlan in consumerPlans">
+								<td class="text-center">{{$index + 1}}</td>
+								<td class="text-center">{{consumerPlan.purchaseDate }}</td>
+								<td class="text-center">{{consumerPlan.dictionary.codeText }}</td>
+								<td class="text-center">{{consumerPlan.details }}</td>
+								<td class="text-center">{{consumerPlan.expense }}</td>
+								<td class="text-center">
+									<a class="btn btn-primary btn-xs" href="#!/edit-consumer-plan.html/{{consumerPlan.id}}">修改</a>
+									<a class="btn btn-primary btn-xs" ng-click="remove(consumerPlan.id)">删除</a> 
+									<a class="btn btn-primary btn-xs">详情</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer" style="margin: 0px;text-align: center;">
+					<pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" 
+						first-text="第一页" last-text="末页" previous-text="上一页" next-text="下一页" 
+						class="pagination-lg"  boundary-links="true" items-per-page="itemsPerPage" rotate="false" num-pages="numPages">
+					</pagination>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
