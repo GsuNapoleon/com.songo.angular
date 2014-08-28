@@ -16,6 +16,15 @@ projectApp.config([ '$routeProvider', '$locationProvider',
 			}).when('/edit-consumer-plan.html/:id', {
 				templateUrl : 'app/consume/edit_consumer_plan.html',
 				controller : 'ConsumerEditCtrl'
+			}).when('/income-lists.html', {
+				templateUrl : 'app/income/incomes.html',
+				controller : 'IncomeListCtrl'
+			}).when('/edit-income.html', {
+				templateUrl : 'app/income/edit_income.html',
+				controller : 'IncomeListCtrl'
+			}).when('/edit-income.html/:id', {
+				templateUrl : 'app/income/edit_income.html',
+				controller : 'IncomeListCtrl'
 			}).otherwise({
 				templateUrl : 'app/main.html',
 				controller : 'WelcomeCtrl'

@@ -138,47 +138,21 @@ projectControllers.controller('MenuController', function($scope) {
 	$scope.menus = [ {
 		name : '消费总览',
 		isLeaf : true,
-		url : '/main.html'
+		url : '#!/main.html'
 	}, {
 		name : '消费计划',
 		isLeaf : true,
-		url : '/consumer-plans.html'
+		url : '#!/consumer-plans.html'
 	}, {
 		name : '收入管理',
-		isLeaf : false,
-		submenus : [ {
-			name : '工资管理',
-			isLeaf : true,
-			url : 'commons.html'
-		}, {
-			name : '私单管理',
-			isLeaf : true,
-			url : 'commons.html'
-		}, {
-			name : '理财管理',
-			isLeaf : true,
-			url : 'commons.html'
-		}, {
-			name : '其它管理',
-			isLeaf : true,
-			url : 'commons.html'
-		} ]
+		isLeaf : true,
+		url : '#!/income-lists.html'
 	}, {
 		name : '支出管理',
-		isLeaf : false,
-		submenus : [ {
-			name : '常用支出管理',
-			isLeaf : true,
-			url : 'commons.html'
-		}, {
-			name : '临时支出管理',
-			isLeaf : true,
-			url : 'commons.html'
-		}, {
-			name : '支出汇总管理',
-			isLeaf : true,
-			url : 'commons.html'
-		} ]
+		isLeaf : true
+	}, {
+		name : '人员管理',
+		isLeaf : true
 	} ];
 	// $scope.menu = $scope.menus[0];
 });
