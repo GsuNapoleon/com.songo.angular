@@ -138,15 +138,15 @@ projectControllers.controller('MenuController', function($scope) {
 	$scope.menus = [ {
 		name : '消费总览',
 		isLeaf : true,
-		url : '#!/main.html'
+		url : '/main.html'
 	}, {
 		name : '消费计划',
 		isLeaf : true,
-		url : '#!/consumer-plans.html'
+		url : '/consumer-plans.html'
 	}, {
 		name : '收入管理',
 		isLeaf : true,
-		url : '#!/income-lists.html'
+		url : '/income-lists.html'
 	}, {
 		name : '支出管理',
 		isLeaf : true

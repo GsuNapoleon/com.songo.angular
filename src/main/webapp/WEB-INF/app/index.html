@@ -25,7 +25,7 @@
         		<div class="panel-heading">功能菜单</div>
         		<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked" ng-repeat="menu in menus">
-						<li ng-if="menu.isLeaf"><a href="{{menu.url}}" >{{menu.name}}</a></li>
+						<li ng-if="menu.isLeaf"><a href="#!{{menu.url}}" >{{menu.name}}</a></li>
 						<li ng-if="!menu.isLeaf" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{menu.name}}<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li ng-repeat="submenu in menu.submenus" ng-if="submenu.isLeaf">
@@ -51,6 +51,7 @@
 	<script type="text/javascript" src="resources/My97DatePicker/WdatePicker.js"></script>
 	<script type="text/javascript" src="resources/app/app.js"></script>
 	<script type="text/javascript" src="resources/app/controllers.js"></script>
+	<script type="text/javascript" src="resources/app/controllers/IncomeControllers.js"></script>
 	<script type="text/javascript" src="resources/app/services.js"></script>
 </body>
 </html>
