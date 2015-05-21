@@ -1,0 +1,20 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<div class="panel panel-primary">
+		<div class="panel-heading">搜索引擎</div>
+		<div class="panel-body text-center" style="padding:15px 5px 0px 5px;">
+			<form class="form-horizontal" id="SearchForm" name="SearchForm" 
+				role="form" ng-submit="form.$invalid || search()">
+				<div class="form-group">
+					<div class="col-lg-6 col-lg-push-3">
+						<input id="lst-ib" name="q" ng-model="keywords" type="text" title="Google 搜索" 
+							class="form-control" placeholder="" required maxlength="2048" autocomplete="off"/>
+					</div>
+				</div>
+				<div class="form-group col-lg-6 col-lg-push-3 text-center">
+					<input class="btn btn-primary" type="submit" value="Google 搜索"/>&nbsp;&nbsp;
+					<input class="btn btn-primary" type="button" onclick="" value="试试手气"/> 
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

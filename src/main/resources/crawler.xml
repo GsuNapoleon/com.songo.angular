@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crawlers>
+	<init-url>
+		http://baike.baidu.com/
+		http://fenlei.baike.com/
+		http://zh.wikipedia.org/zh/
+		http://www.youku.com/
+		http://www.iqiyi.com/
+		http://www.sohu.com/
+		http://www.qulishi.com/
+		http://www.letv.com/
+		http://www.china.com.cn/
+		http://www.douban.com/
+		http://www.artx.cn/
+		http://www.mbalib.com/
+		http://www.cntv.cn/
+		http://www.163.com/
+		http://www.ifeng.com/
+		http://www.sina.com.cn/
+		http://www.qq.com/
+	</init-url>
+	<files>
+		<origin-directory>E:\\SEARCH\\CRAWLER\\ORIGIN</origin-directory>
+	</files>
+</crawlers>

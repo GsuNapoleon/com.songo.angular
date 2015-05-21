@@ -25,6 +25,9 @@ projectApp.config([ '$routeProvider', '$locationProvider',
 			}).when('/edit-income.html/:id', {
 				templateUrl : 'app/income/edit_income.html',
 				controller : 'IncomeListCtrl'
+			}).when('/search.html', {
+				templateUrl : 'app/search/search.html',
+				controller : 'SearchCtrl'
 			}).otherwise({
 				templateUrl : 'app/main.html',
 				controller : 'WelcomeCtrl'

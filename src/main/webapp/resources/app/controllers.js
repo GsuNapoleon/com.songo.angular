@@ -153,6 +153,10 @@ projectControllers.controller('MenuController', function($scope) {
 	}, {
 		name : '人员管理',
 		isLeaf : true
+	}, {
+		name : '搜索引擎',
+		isLeaf : true,
+		url	: '/search.html'
 	} ];
 	// $scope.menu = $scope.menus[0];
 });
