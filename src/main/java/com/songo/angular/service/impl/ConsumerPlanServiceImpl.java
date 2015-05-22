@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +28,24 @@ public class ConsumerPlanServiceImpl implements ConsumerPlanService {
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
 	private ConsumerPlanDao consumerPlanDao;
 	
+	/**
+	 * @return the consumerPlanDao
+	 */
+	public ConsumerPlanDao getConsumerPlanDao() {
+		return this.consumerPlanDao;
+	}
+
+	/**
+	 * @param consumerPlanDao the consumerPlanDao to set
+	 */
+	@Autowired
+	@Required
+	public void setConsumerPlanDao(ConsumerPlanDao consumerPlanDao) {
+		this.consumerPlanDao = consumerPlanDao;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.songo.angular.service.ConsumerPlanService#add(com.songo.angular.model.ConsumerPlan)
 	 */

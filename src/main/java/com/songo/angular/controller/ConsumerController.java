@@ -9,11 +9,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,9 +35,24 @@ public class ConsumerController extends BaseController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
 
-	@Autowired
 	private ConsumerPlanService consumerPlanService;
 	
+	/**
+	 * @return the consumerPlanService
+	 */
+	public ConsumerPlanService getConsumerPlanService() {
+		return consumerPlanService;
+	}
+
+	/**
+	 * @param consumerPlanService the consumerPlanService to set
+	 */
+	@Autowired
+	@Required
+	public void setConsumerPlanService(ConsumerPlanService consumerPlanService) {
+		this.consumerPlanService = consumerPlanService;
+	}
+
 	@RequestMapping(value="/{currentPage}/{searchContent}/{operate}", method=RequestMethod.GET)
 	@ResponseBody
 	public Pagination<ConsumerPlan> pagination(@PathVariable int currentPage,
