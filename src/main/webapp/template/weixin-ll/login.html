@@ -1,0 +1,44 @@
+<!doctype HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="author" content="yangzhifang_gz none" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/><!-- 手机视图 -->
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta name="format-detection" content="address=no" >
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>登录</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link type="text/css" rel="stylesheet" href="http://js.3conline.com/wap/pconline/2015/weixin/style.css"/>
+</head>
+
+<body>
+   
+<div class="body" style="background:#fff;">
+    <div class="g-hd-login">
+        <a href="#" title="" class="header-home"></a>
+        <div class="header-title"><span class="header-title-home">登录</span></div>
+    </div>
+    <div class="m-login">
+        <form id="login" name="login" method="post"
+              action="http://passport2.pcauto.com.cn/passport2/passport/login_ajax_do.jsp">
+            <div class="m-postMessage">
+                <div class="m-login-input">
+                <p class="p-username"><input type="text"  name="username" placeholder="用户名/邮箱/手机号" maxLength="50" id="username" value=""></p>
+                <p class="p-password"><input type="password"  name="password"  placeholder="密码" maxLength="18" id="password"/></p>
+                </div>
+                    
+                <p class="m-postMessage-warn" style="display:none;"></p>
+                <div class="m-postMessage-btn-wrap">
+                    <input type="hidden" id="return" name="return" value="http://m.pcauto.com.cn/x/login/">
+                    <input type="hidden" id="auto_login" name="auto_login" value="200">
+                    <input id="submitButton" type="submit" onclick="if(!checkInfo()) return false;" name="" value="马上登录" class="m-postMessage-btn">
+                </div>
+            </div>
+        </form>               
+    </div>
+</div>
+</body>
+</html>
